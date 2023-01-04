@@ -2,6 +2,8 @@
 .SUFFIXES:  .cpp .hpp .c++ .c++m .test.c++ .o
 .DEFAULT_GOAL = all
 
+ifeq ($(MAKELEVEL),0)
+
 ifndef OS
 OS = $(shell uname -s)
 endif
@@ -27,13 +29,16 @@ CXXFLAGS = -I/usr/local/opt/llvm/include/ -I/usr/local/opt/llvm/include/c++/v1
 LDFLAGS = -L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++
 endif
 
-CXXFLAGS += -std=c++20 -stdlib=libc++ -fexperimental-library
+CXXFLAGS += -std=c++20 -stdlib=libc++
 CXXFLAGS += -fprebuilt-module-path=$(moduledir)
 CXXFLAGS += -Wall -Wextra
 CXXFLAGS += -I$(sourcedir)
-LDFLAGS += -fuse-ld=lld -fexperimental-library
+LDFLAGS += -fuse-ld=lld
 
-UNITTEST = -s
+endif #($(MAKELEVEL),0)
+
+CXXFLAGS += -fexperimental-library
+LDFLAGS += -fexperimental-library
 
 sourcedir = src
 objectdir = obj
@@ -85,7 +90,7 @@ $(library) : $(objects)
 	@mkdir -p $(@D)
 	$(AR) $(ARFLAGS) $@ $^
 
-$(dependencies): $(sources) $(modules) $(test-sources)
+$(dependencies):
 	@mkdir -p $(@D)
 #c++m module wrapping headers etc.
 	grep -HE '[ ]*export[ ]+module' $(sourcedir)/*.c++m | sed -E 's/.+\/([a-z_0-9\-]+)\.c\+\+m.+/$(objectdir)\/\1.o: $(moduledir)\/\1.pcm/' > $(dependencies)
@@ -107,7 +112,7 @@ all: module
 module: $(dependencies) $(library)
 
 .PHONY: test
-test: $(test-objects) $(targets)
+test: $(dependencies) $(test-objects) $(targets)
 
 .PHONY: clean
 clean:
