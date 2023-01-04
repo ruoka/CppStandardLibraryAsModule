@@ -42,7 +42,11 @@ librarydir = lib
 binarydir = bin
 
 programs = main
+library = $(librarydir)/libstd.a
+
 targets = $(programs:%=$(binarydir)/%)
+test-sources = $(wildcard $(sourcedir)/*test.c++)
+test-objects = $(test-sources:$(sourcedir)%.c++=$(objectdir)%.o) $(test-program:%=$(objectdir)/%.o)
 sources = $(filter-out $(programs:%=$(sourcedir)/%.c++) $(test-sources), $(wildcard $(sourcedir)/*.c++))
 modules = $(wildcard $(sourcedir)/*.c++m)
 objects = $(modules:$(sourcedir)%.c++m=$(objectdir)%.o) $(sources:$(sourcedir)%.c++=$(objectdir)%.o)
@@ -77,6 +81,10 @@ $(binarydir)/%: $(sourcedir)/%.c++ $(objects) $(libraries)
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
+$(library) : $(objects)
+	@mkdir -p $(@D)
+	$(AR) $(ARFLAGS) $@ $^
+
 $(dependencies): $(sources) $(modules) $(test-sources)
 	@mkdir -p $(@D)
 #c++m module wrapping headers etc.
@@ -93,17 +101,16 @@ $(dependencies): $(sources) $(modules) $(test-sources)
 -include $(dependencies)
 
 .PHONY: all
-all: $(libraries) $(dependencies) $(targets)
+all: module
+
+.PHONY: module
+module: $(dependencies) $(library)
 
 .PHONY: test
-test:
-	$(targets)
+test: $(test-objects) $(targets)
 
 .PHONY: clean
-clean: mostlyclean
-
-.PHONY: mostlyclean
-mostlyclean:
+clean:
 	rm -rf $(objectdir) $(binarydir) $(moduledir)
 
 .PHONY: dump
