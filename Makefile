@@ -40,11 +40,12 @@ endif #($(MAKELEVEL),0)
 CXXFLAGS += -fexperimental-library
 LDFLAGS += -fexperimental-library
 
+PREFIX = .
 sourcedir = src
 objectdir = obj
-moduledir = pcm
-librarydir = lib
-binarydir = bin
+binarydir = $(PREFIX)/bin
+moduledir = $(PREFIX)/pcm
+librarydir = $(PREFIX)/lib
 
 programs = main
 library = $(librarydir)/libstd.a
