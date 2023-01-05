@@ -1920,9 +1920,66 @@ export namespace std
         // using std::chrono::zoned_seconds;
         // using std::chrono::zoned_time;
         // using std::chrono::zoned_traits;
+
+#if __cpp_lib_chrono >= 201907L
+
+        using std::chrono::ambiguous_local_time;
+        using std::chrono::choose;
+        // using std::chrono::clock_cast;
+        // using std::chrono::clock_time_conversion;
+        using std::chrono::current_zone;
+        // using std::chrono::file_clock;
+        // using std::chrono::file_seconds;
+        // using std::chrono::file_time;
+        using std::chrono::get_leap_second_info;
+        using std::chrono::get_tzdb;
+        using std::chrono::get_tzdb_list;
+        // using std::chrono::gps_clock;
+        // using std::chrono::gps_seconds;
+        // using std::chrono::gps_time;
+        using std::chrono::is_clock;
+        using std::chrono::is_clock_v;
+        using std::chrono::leap_second;
+        using std::chrono::leap_second_info;
+        using std::chrono::local_info;
+        // using std::chrono::local_t;
+        // using std::chrono::local_seconds;
+        // using std::chrono::local_time;
+        using std::chrono::locate_zone;
+        using std::chrono::nonexistent_local_time;
+        using std::chrono::reload_tzdb;
+        using std::chrono::remote_version;
+        using std::chrono::sys_info;
+        // using std::chrono::tai_clock;
+        // using std::chrono::tai_seconds;
+        // using std::chrono::tai_time;
+        using std::chrono::time_zone;
+        using std::chrono::time_zone_link;
+        using std::chrono::tzdb;
+        using std::chrono::tzdb_list;
+        // using std::chrono::utc_clock;
+        // using std::chrono::utc_seconds;
+        // using std::chrono::utc_time;
+        using std::chrono::zoned_seconds;
+        using std::chrono::zoned_time;
+        using std::chrono::zoned_traits;
+
+#endif
+
+#if __cpp_lib_format >= 202207L
+
+    using std::chrono::from_stream;
+    using std::chrono::local_time_format;
+    using std::chrono::parse;
+
+#endif
+
     }
 
 #ifdef __cpp_lib_execution
+
+    using std::is_execution_policy;
+    using std::is_execution_policy_v;
 
     namespace execution
     {
