@@ -1,4 +1,5 @@
 module;
+#include <version>
 // C++ STD
 #include <algorithm>
 #include <bitset>
@@ -58,7 +59,9 @@ module;
 #include <any>
 #include <execution>
 #include <filesystem>
-//#include <memory_resource>
+#ifdef __cpp_lib_memory_resource
+#include <memory_resource>
+#endif
 #include <optional>
 #include <shared_mutex>
 #include <string_view>
@@ -75,11 +78,16 @@ module;
 #include <numbers>
 #include <ranges>
 #include <semaphore>
-//#include <source_location>
+#ifdef __cpp_lib_source_location
+#include <source_location>
+#endif
 #include <span>
-//#include <stop_token>
-//#include <syncstream>
-#include <version>
+#ifdef __cpp_lib_jthread
+#include <stop_token>
+#endif
+#ifdef __cpp_lib_syncbuf
+#include <syncstream>
+#endif
 // C++ headers for C
 #include <cassert>
 #include <cctype>
@@ -1775,8 +1783,8 @@ export namespace std
     using std::basic_osyncstream;
     using std::basic_syncbuf;
     using std::osyncstream;
-    using std::wosyncstream;
     using std::syncbuf;
+    using std::wosyncstream;
     using std::wsyncbuf;
     #endif
 
