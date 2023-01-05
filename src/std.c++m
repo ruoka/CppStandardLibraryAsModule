@@ -131,6 +131,7 @@ export namespace std
     using std::operator <=>;
 
     using std::abs;
+    using std::abort;
     using std::accumulate;
     using std::acos;
     using std::acosf;
@@ -1785,13 +1786,6 @@ export namespace std
     using std::make_unique_for_overwrite;
     #endif
 
-    namespace this_thread
-    {
-        using std::this_thread::get_id;
-        using std::this_thread::sleep_for;
-        using std::this_thread::sleep_until;
-    }
-
     namespace chrono
     {
         // using std::chrono::operator <<;
@@ -2120,10 +2114,16 @@ export namespace std
         using std::regex_constants::syntax_option_type;
     }
 
+    namespace this_thread
+    {
+        using std::this_thread::get_id;
+        using std::this_thread::sleep_for;
+        using std::this_thread::sleep_until;
+    }
+
 // POSIX functions
 
     using ::kill;
-    using std::abort;
     constexpr auto sigterm = SIGTERM;
     constexpr auto sigint = SIGINT;
     constexpr auto sigkill = SIGKILL;
