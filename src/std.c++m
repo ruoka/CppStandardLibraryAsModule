@@ -1920,6 +1920,22 @@ export namespace std
         // using std::chrono::zoned_traits;
     }
 
+#ifdef __cpp_lib_execution
+
+    namespace execution
+    {
+        using std::execution::par;
+        using std::execution::par_unseq;
+        using std::execution::parallel_policy;
+        using std::execution::parallel_unsequenced_policy;
+        using std::execution::seq;
+        using std::execution::sequenced_policy;
+        using std::execution::unseq;
+        using std::execution::unsequenced_policy;
+    }
+
+#endif
+
     namespace filesystem
     {
         using std::filesystem::absolute;
@@ -1983,38 +1999,125 @@ export namespace std
         using std::filesystem::weakly_canonical;
     }
 
-    inline namespace string_literals
-    {
-        using std::string_literals::operator""s;
-    }
-
-    inline namespace string_view_literals
-    {
-        using std::string_view_literals::operator""sv;
-    }
-
-    inline namespace chrono_literals
-    {
-        using std::literals::operator""d;
-        using std::literals::operator""h;
-        using std::literals::operator""min;
-        using std::literals::operator""ms;
-        using std::literals::operator""ns;
-        using std::literals::operator""s;
-        using std::literals::operator""us;
-        using std::literals::operator""y;
-    }
-
     inline namespace literals
     {
-        using std::literals::operator""d;
-        using std::literals::operator""h;
-        using std::literals::operator""min;
-        using std::literals::operator""ms;
-        using std::literals::operator""ns;
-        using std::literals::operator""s;
-        using std::literals::operator""us;
-        using std::literals::operator""y;
+
+        inline namespace string_literals
+        {
+            using std::literals::string_literals::operator""s;
+        }
+
+        inline namespace string_view_literals
+        {
+            using std::literals::string_view_literals::operator""sv;
+        }
+
+        inline namespace chrono_literals
+        {
+            using std::literals::chrono_literals::operator""d;
+            using std::literals::chrono_literals::operator""h;
+            using std::literals::chrono_literals::operator""min;
+            using std::literals::chrono_literals::operator""ms;
+            using std::literals::chrono_literals::operator""ns;
+            using std::literals::chrono_literals::operator""s;
+            using std::literals::chrono_literals::operator""us;
+            using std::literals::chrono_literals::operator""y;
+        }
+
+        inline namespace complex_literals
+        {
+            using std::literals::complex_literals::operator""i;
+            using std::literals::complex_literals::operator""if;
+            using std::literals::complex_literals::operator""il;
+        }
+    }
+
+    namespace numbers
+    {
+        using std::numbers::e_v;
+        using std::numbers::egamma;
+        using std::numbers::egamma_v;
+        using std::numbers::inv_pi;
+        using std::numbers::inv_pi_v;
+        using std::numbers::inv_sqrt3;
+        using std::numbers::inv_sqrt3_v;
+        using std::numbers::inv_sqrtpi;
+        using std::numbers::inv_sqrtpi_v;
+        using std::numbers::ln10;
+        using std::numbers::ln10_v;
+        using std::numbers::ln2;
+        using std::numbers::ln2_v;
+        using std::numbers::log10e;
+        using std::numbers::log10e_v;
+        using std::numbers::log2e;
+        using std::numbers::log2e_v;
+        using std::numbers::phi;
+        using std::numbers::phi_v;
+        using std::numbers::pi;
+        using std::numbers::pi_v;
+        using std::numbers::sqrt2;
+        using std::numbers::sqrt2_v;
+        using std::numbers::sqrt3;
+        using std::numbers::sqrt3_v;
+    }
+
+    namespace placeholders
+    {
+        //  error: using declaration referring to '_1' with internal linkage cannot be exported
+        // using std::placeholders::_1;
+        // using std::placeholders::_2;
+        // using std::placeholders::_3;
+        // using std::placeholders::_4;
+        // using std::placeholders::_5;
+        // using std::placeholders::_6;
+        // using std::placeholders::_7;
+        // using std::placeholders::_8;
+        // using std::placeholders::_9;
+        // using std::placeholders::_10;
+    }
+
+    namespace regex_constants
+    {
+        using std::regex_constants::awk;
+        using std::regex_constants::basic;
+        using std::regex_constants::collate;
+        using std::regex_constants::ECMAScript;
+        using std::regex_constants::egrep;
+        using std::regex_constants::error_backref;
+        using std::regex_constants::error_badbrace;
+        using std::regex_constants::error_badrepeat;
+        using std::regex_constants::error_brace;
+        using std::regex_constants::error_brack;
+        using std::regex_constants::error_collate;
+        using std::regex_constants::error_complexity;
+        using std::regex_constants::error_ctype;
+        using std::regex_constants::error_escape;
+        using std::regex_constants::error_paren;
+        using std::regex_constants::error_range;
+        using std::regex_constants::error_space;
+        using std::regex_constants::error_stack;
+        using std::regex_constants::error_type;
+        using std::regex_constants::extended;
+        using std::regex_constants::format_default;
+        using std::regex_constants::format_first_only;
+        using std::regex_constants::format_no_copy;
+        using std::regex_constants::format_sed;
+        using std::regex_constants::grep;
+        using std::regex_constants::icase;
+        using std::regex_constants::match_any;
+        using std::regex_constants::match_continuous;
+        using std::regex_constants::match_default;
+        using std::regex_constants::match_flag_type;
+        using std::regex_constants::match_not_bol;
+        using std::regex_constants::match_not_bow;
+        using std::regex_constants::match_not_eol;
+        using std::regex_constants::match_not_eow;
+        using std::regex_constants::match_not_null;
+        using std::regex_constants::match_prev_avail;
+        using std::regex_constants::multiline;
+        using std::regex_constants::nosubs;
+        using std::regex_constants::optimize;
+        using std::regex_constants::syntax_option_type;
     }
 
 // POSIX functions
