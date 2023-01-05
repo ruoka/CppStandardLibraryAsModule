@@ -2008,6 +2008,13 @@ export namespace std
         using std::literals::operator""us;
         using std::literals::operator""y;
     }
+
+// POSIX functions
+
+    using ::kill;
+    constexpr auto sigterm = SIGTERM;
+    constexpr auto sigint = SIGINT;
+    constexpr auto sigkill = SIGKILL;
 }
 
 #if __cpp_lib_format < 202207L

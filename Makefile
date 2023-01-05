@@ -42,22 +42,22 @@ LDFLAGS += -fexperimental-library
 
 PREFIX = .
 sourcedir = src
-objectdir = obj
+objectdir = $(PREFIX)/obj
 binarydir = $(PREFIX)/bin
 moduledir = $(PREFIX)/pcm
 librarydir = $(PREFIX)/lib
 
 programs = main
 library = $(librarydir)/libstd.a
+.PRECIOUS: $(moduledir)/%.pcm
 
 targets = $(programs:%=$(binarydir)/%)
 test-sources = $(wildcard $(sourcedir)/*test.c++)
 test-objects = $(test-sources:$(sourcedir)%.c++=$(objectdir)%.o) $(test-program:%=$(objectdir)/%.o)
+
 sources = $(filter-out $(programs:%=$(sourcedir)/%.c++) $(test-sources), $(wildcard $(sourcedir)/*.c++))
 modules = $(wildcard $(sourcedir)/*.c++m)
 objects = $(modules:$(sourcedir)%.c++m=$(objectdir)%.o) $(sources:$(sourcedir)%.c++=$(objectdir)%.o)
-
-dependencies = $(objectdir)/Makefile.deps
 
 $(moduledir)/%.pcm: $(sourcedir)/%.c++m
 	@mkdir -p $(@D)
@@ -91,29 +91,14 @@ $(library) : $(objects)
 	@mkdir -p $(@D)
 	$(AR) $(ARFLAGS) $@ $^
 
-$(dependencies):
-	@mkdir -p $(@D)
-#c++m module wrapping headers etc.
-	grep -HE '[ ]*export[ ]+module' $(sourcedir)/*.c++m | sed -E 's/.+\/([a-z_0-9\-]+)\.c\+\+m.+/$(objectdir)\/\1.o: $(moduledir)\/\1.pcm/' > $(dependencies)
-#c++m module interface unit
-	grep -HE '[ ]*import[ ]+([a-z_0-9]+)' $(sourcedir)/*.c++m | sed -E 's/.+\/([a-z_0-9\-]+)\.c\+\+m:[ ]*import[ ]+([a-z_0-9]+)[ ]*;/$(moduledir)\/\1.pcm: $(moduledir)\/\2.pcm/' >> $(dependencies)
-#c++m module partition unit
-	grep -HE '[ ]*import[ ]+:([a-z_0-9]+)' $(sourcedir)/*.c++m | sed -E 's/.+\/([a-z_0-9]+)(\-*)([a-z_0-9]*)\.c\+\+m:.*import[ ]+:([a-z_0-9]+)[ ]*;/$(moduledir)\/\1\2\3.pcm: $(moduledir)\/\1\-\4.pcm/' >> $(dependencies)
-#c++m module impl unit
-	grep -HE '[ ]*module[ ]+([a-z_0-9]+)' $(sourcedir)/*.c++ | sed -E 's/.+\/([a-z_0-9\.\-]+)\.c\+\+:[ ]*module[ ]+([a-z_0-9]+)[ ]*;/$(objectdir)\/\1.o: $(moduledir)\/\2.pcm/' >> $(dependencies)
-#c++ source code
-	grep -HE '[ ]*import[ ]+([a-z_0-9]+)' $(sourcedir)/*.c++ | sed -E 's/.+\/([a-z_0-9\.\-]+)\.c\+\+:[ ]*import[ ]+([a-z_0-9]+)[ ]*;/$(objectdir)\/\1.o: $(moduledir)\/\2.pcm/' >> $(dependencies)
-
--include $(dependencies)
-
 .PHONY: all
 all: module
 
 .PHONY: module
-module: $(dependencies) $(library)
+module: $(library)
 
 .PHONY: test
-test: $(dependencies) $(test-objects) $(targets)
+test: $(test-objects) $(targets)
 
 .PHONY: clean
 clean:
