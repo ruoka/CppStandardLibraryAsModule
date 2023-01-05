@@ -120,6 +120,8 @@ export namespace std
     using std::operator >>;
     using std::operator +;
     using std::operator -;
+    using std::operator *;
+    using std::operator /;
     using std::operator <;
     using std::operator <=;
     using std::operator >;
@@ -205,6 +207,7 @@ export namespace std
     using std::atol;
     using std::atoll;
     using std::atomic;
+    using std::atomic_bool;
     using std::atomic_compare_exchange_strong;
     using std::atomic_compare_exchange_strong_explicit;
     using std::atomic_compare_exchange_weak;
@@ -720,6 +723,7 @@ export namespace std
     using std::int32_t;
     using std::int64_t;
     using std::int8_t;
+    using std::index_sequence;
     using std::integer_sequence;
     using std::integral;
     using std::integral_constant;
@@ -1035,6 +1039,7 @@ export namespace std
     using std::make_format_args;
     using std::make_from_tuple;
     using std::make_heap;
+    using std::make_index_sequence;
     using std::make_move_iterator;
     // using std::make_obj_using_allocator;
     using std::make_optional;
@@ -1793,6 +1798,8 @@ export namespace std
         // using std::chrono::operator >>;
         using std::chrono::operator +;
         using std::chrono::operator -;
+        using std::chrono::operator /;
+        using std::chrono::operator *;
         using std::chrono::operator <;
         using std::chrono::operator <=;
         using std::chrono::operator >;
@@ -1812,6 +1819,7 @@ export namespace std
         // using std::chrono::clock_time_conversion;
         // using std::chrono::current_zone;
         using std::chrono::day;
+        using std::chrono::days;
         using std::chrono::December;
         using std::chrono::duration;
         using std::chrono::duration_cast;
@@ -2012,6 +2020,7 @@ export namespace std
 // POSIX functions
 
     using ::kill;
+    using std::abort;
     constexpr auto sigterm = SIGTERM;
     constexpr auto sigint = SIGINT;
     constexpr auto sigkill = SIGKILL;
