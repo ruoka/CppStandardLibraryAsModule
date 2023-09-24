@@ -37,9 +37,6 @@ LDFLAGS += -fuse-ld=lld
 
 endif #($(MAKELEVEL),0)
 
-CXXFLAGS += -fexperimental-library
-LDFLAGS += -fexperimental-library
-
 PREFIX = .
 sourcedir = src
 objectdir = $(PREFIX)/obj

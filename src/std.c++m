@@ -2169,7 +2169,7 @@ export namespace std
         using std::ranges::iter_move;
         using std::ranges::iter_swap;
         using std::ranges::iterator_t;
-        using std::ranges::join_view;
+        // using std::ranges::join_view;
         // using std::ranges::keys_view;
         using std::ranges::lazy_split_view;
         using std::ranges::less;
@@ -2311,7 +2311,7 @@ export namespace std
             using std::ranges::views::filter;
             using std::ranges::views::iota;
             using std::ranges::views::istream;
-            using std::ranges::views::join;
+            // using std::ranges::views::join;
             // using std::ranges::views::keys;
             using std::ranges::views::lazy_split;
             using std::ranges::views::reverse;
