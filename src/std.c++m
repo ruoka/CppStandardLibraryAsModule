@@ -1782,7 +1782,7 @@ export namespace std
 
     namespace chrono
     {
-        // using std::chrono::operator <<;
+        using std::chrono::operator <<;
         // using std::chrono::operator >>;
         using std::chrono::operator +;
         using std::chrono::operator -;
@@ -2310,7 +2310,7 @@ export namespace std
             using std::ranges::views::empty;
             using std::ranges::views::filter;
             using std::ranges::views::iota;
-            // using std::ranges::views::istream;
+            using std::ranges::views::istream;
             using std::ranges::views::join;
             // using std::ranges::views::keys;
             using std::ranges::views::lazy_split;
@@ -2469,29 +2469,29 @@ export namespace std
         using utc_days = std::chrono::sys_days; // FIXME
         using utc_seconds = std::chrono::sys_seconds; // FIXME
 
-        template <class CharT, class Traits>
-        std::basic_ostream<CharT, Traits>&
-        operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::year& y) noexcept
-        {
-            os << static_cast<int>(y);
-            return os;
-        }
+        // template <class CharT, class Traits>
+        // std::basic_ostream<CharT, Traits>&
+        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::year& y) noexcept
+        // {
+        //     os << static_cast<int>(y);
+        //     return os;
+        // }
 
-        template <class CharT, class Traits>
-        std::basic_ostream<CharT, Traits>&
-        operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::month& m) noexcept
-        {
-            os << static_cast<unsigned>(m);
-            return os;
-        }
+        // template <class CharT, class Traits>
+        // std::basic_ostream<CharT, Traits>&
+        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::month& m) noexcept
+        // {
+        //     os << static_cast<unsigned>(m);
+        //     return os;
+        // }
 
-        template <class CharT, class Traits>
-        std::basic_ostream<CharT, Traits>&
-        operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::day& d) noexcept
-        {
-            os << static_cast<unsigned>(d);
-            return os;
-        }
+        // template <class CharT, class Traits>
+        // std::basic_ostream<CharT, Traits>&
+        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::day& d) noexcept
+        // {
+        //     os << static_cast<unsigned>(d);
+        //     return os;
+        // }
 
         template<typename T, typename R>
         auto& operator << (std::ostream& os, const std::chrono::duration<T,R>& d) noexcept
@@ -2503,13 +2503,14 @@ export namespace std
     } // namesapse chrono
 
     template<typename Duration>
-    struct formatter<chrono::utc_time<Duration>>
+    struct formatter<chrono::utc_time<Duration>> : formatter<unsigned>
     {
         bool date = false;
         bool time = false;
         bool ticks = false;
 
-        constexpr auto parse(format_parse_context& context)
+        template <typename FormatParseContext>
+        constexpr auto parse(FormatParseContext& context)
         {
             auto pos = context.begin();
             while (pos != context.end() and *pos != '}')
@@ -2523,7 +2524,7 @@ export namespace std
         }
 
         template<typename FormatContext>
-        constexpr auto format(const chrono::utc_time<Duration>& timestamp, FormatContext& context)
+        constexpr auto format(chrono::utc_time<Duration> timestamp, FormatContext& context) const
         {
             auto out = context.out();
 
