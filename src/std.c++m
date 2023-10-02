@@ -165,7 +165,7 @@ export namespace std
     using std::addressof;
     using std::adjacent_difference;
     using std::adjacent_find;
-    // using std::adopt_lock;
+    using std::adopt_lock;
     using std::adopt_lock_t;
     using std::advance;
     using std::align;
@@ -180,7 +180,7 @@ export namespace std
     using std::all_of;
     using std::allocate_shared;
     using std::allocator;
-    // using std::allocator_arg;
+    using std::allocator_arg;
     using std::allocator_arg_t;
     using std::allocator_traits;
     using std::any;
@@ -442,7 +442,7 @@ export namespace std
     using std::default_sentinel;
     using std::default_sentinel_t;
     using std::defaultfloat;
-    // using std::defer_lock;
+    using std::defer_lock;
     using std::defer_lock_t;
     using std::denorm_absent;
     using std::denorm_indeterminate;
@@ -469,7 +469,6 @@ export namespace std
     using std::double_t;
     using std::dynamic_extent;
     using std::dynamic_pointer_cast;
-    // using std::emit_on_flush;
     using std::empty;
     using std::enable_if;
     using std::enable_if_t;
@@ -564,7 +563,6 @@ export namespace std
     using std::floorf;
     using std::floorl;
     using std::flush;
-    // using std::flush_emit;
     using std::fma;
     using std::fmaf;
     using std::fmal;
@@ -672,7 +670,7 @@ export namespace std
     using std::hypotl;
     using std::identity;
     using std::ifstream;
-    // using std::ignore;
+    using std::ignore;
     using std::ilogb;
     using std::ilogbf;
     using std::ilogbl;
@@ -1036,7 +1034,7 @@ export namespace std
     using std::make_heap;
     using std::make_index_sequence;
     using std::make_move_iterator;
-    // using std::make_obj_using_allocator;
+    using std::make_obj_using_allocator;
     using std::make_optional;
     using std::make_pair;
     using std::make_reverse_iterator;
@@ -1199,7 +1197,7 @@ export namespace std
     using std::peta;
     using std::pico;
     using std::piecewise_constant_distribution;
-    // using std::piecewise_construct;
+    using std::piecewise_construct;
     using std::piecewise_construct_t;
     using std::piecewise_linear_distribution;
     using std::plus;
@@ -1532,7 +1530,7 @@ export namespace std
     using std::truncf;
     using std::truncl;
     using std::try_lock;
-    // using std::try_to_lock;
+    using std::try_to_lock;
     using std::try_to_lock_t;
     using std::tuple;
     using std::tuple_cat;
@@ -1576,7 +1574,7 @@ export namespace std
     using std::uniform_int_distribution;
     using std::uniform_random_bit_generator;
     using std::uniform_real_distribution;
-    // using std::uninitialized_construct_using_allocator;
+    using std::uninitialized_construct_using_allocator;
     using std::uninitialized_copy;
     using std::uninitialized_copy_n;
     using std::uninitialized_default_construct;
@@ -1596,6 +1594,9 @@ export namespace std
     using std::unordered_multimap;
     using std::unordered_multiset;
     using std::unordered_set;
+#ifdef __cpp_lib_unreachable
+    using std::unreachable;
+#endif
     using std::unreachable_sentinel;
     using std::unreachable_sentinel_t;
     using std::unsigned_integral;
@@ -1607,7 +1608,7 @@ export namespace std
     using std::uppercase;
     using std::use_facet;
     using std::uses_allocator;
-    // using std::uses_allocator_construction_args;
+    using std::uses_allocator_construction_args;
     using std::uses_allocator_v;
     using std::va_list;
     using std::valarray;
@@ -1774,6 +1775,8 @@ export namespace std
     using std::syncbuf;
     using std::wosyncstream;
     using std::wsyncbuf;
+    using std::emit_on_flush;
+    using std::flush_emit;
     #endif
 
     #ifdef __cpp_lib_three_way_comparison
@@ -2087,7 +2090,7 @@ export namespace std
         using std::ranges::advance;
         using std::ranges::all_of;
         using std::ranges::any_of;
-        // using std::ranges::basic_istream_view;
+        using std::ranges::basic_istream_view;
         using std::ranges::begin;
         using std::ranges::bidirectional_range;
         using std::ranges::binary_transform_result;
@@ -2122,8 +2125,8 @@ export namespace std
         using std::ranges::disable_sized_range;
         using std::ranges::distance;
         using std::ranges::drop_view;
-        // using std::ranges::drop_while_view;
-        // using std::ranges::elements_view;
+        using std::ranges::drop_while_view;
+        using std::ranges::elements_view;
         using std::ranges::empty;
         using std::ranges::empty_view;
         using std::ranges::enable_borrowed_range;
@@ -2165,12 +2168,12 @@ export namespace std
         using std::ranges::is_permutation;
         using std::ranges::is_sorted;
         using std::ranges::is_sorted_until;
-        // using std::ranges::istream_view;
+        using std::ranges::istream_view;
         using std::ranges::iter_move;
         using std::ranges::iter_swap;
         using std::ranges::iterator_t;
         // using std::ranges::join_view;
-        // using std::ranges::keys_view;
+        using std::ranges::keys_view;
         using std::ranges::lazy_split_view;
         using std::ranges::less;
         using std::ranges::less_equal;
@@ -2260,7 +2263,7 @@ export namespace std
         using std::ranges::sized_range;
         using std::ranges::sort;
         using std::ranges::sort_heap;
-        // using std::ranges::split_view;
+        using std::ranges::split_view;
         using std::ranges::ssize;
         using std::ranges::stable_partition;
         using std::ranges::stable_sort;
@@ -2270,7 +2273,7 @@ export namespace std
         using std::ranges::swap_ranges;
         using std::ranges::swap_ranges_result;
         using std::ranges::take_view;
-        // using std::ranges::take_while_view;
+        using std::ranges::take_while_view;
         using std::ranges::transform;
         using std::ranges::transform_view;
         using std::ranges::unary_transform_result;
@@ -2291,12 +2294,12 @@ export namespace std
         using std::ranges::unique;
         using std::ranges::unique_copy;
         using std::ranges::unique_copy_result;
-        // using std::ranges::values_view;
+        using std::ranges::values_view;
         using std::ranges::view;
         using std::ranges::view_base;
         using std::ranges::view_interface;
         using std::ranges::viewable_range;
-        // using std::ranges::wistream_view;
+        using std::ranges::wistream_view;
 
         namespace views
         {
@@ -2305,22 +2308,22 @@ export namespace std
             using std::ranges::views::common;
             using std::ranges::views::counted;
             using std::ranges::views::drop;
-            // using std::ranges::views::drop_while;
-            // using std::ranges::views::elements;
+            using std::ranges::views::drop_while;
+            using std::ranges::views::elements;
             using std::ranges::views::empty;
             using std::ranges::views::filter;
             using std::ranges::views::iota;
             using std::ranges::views::istream;
             // using std::ranges::views::join;
-            // using std::ranges::views::keys;
+            using std::ranges::views::keys;
             using std::ranges::views::lazy_split;
             using std::ranges::views::reverse;
             using std::ranges::views::single;
-            // using std::ranges::views::split;
+            using std::ranges::views::split;
             using std::ranges::views::take;
-            // using std::ranges::views::take_while;
+            using std::ranges::views::take_while;
             using std::ranges::views::transform;
-            // using std::ranges::views::values;
+            using std::ranges::views::values;
         }
     }
 
@@ -2462,36 +2465,13 @@ export namespace std
 
 export namespace std
 {
+
     namespace chrono
     {
         using utc_clock = std::chrono::system_clock; // FIXME
         template<typename Duration> using utc_time = std::chrono::sys_time<Duration>; // FIXME
         using utc_days = std::chrono::sys_days; // FIXME
         using utc_seconds = std::chrono::sys_seconds; // FIXME
-
-        // template <class CharT, class Traits>
-        // std::basic_ostream<CharT, Traits>&
-        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::year& y) noexcept
-        // {
-        //     os << static_cast<int>(y);
-        //     return os;
-        // }
-
-        // template <class CharT, class Traits>
-        // std::basic_ostream<CharT, Traits>&
-        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::month& m) noexcept
-        // {
-        //     os << static_cast<unsigned>(m);
-        //     return os;
-        // }
-
-        // template <class CharT, class Traits>
-        // std::basic_ostream<CharT, Traits>&
-        // operator<<(std::basic_ostream<CharT, Traits>& os, const std::chrono::day& d) noexcept
-        // {
-        //     os << static_cast<unsigned>(d);
-        //     return os;
-        // }
 
         template<typename T, typename R>
         auto& operator << (std::ostream& os, const std::chrono::duration<T,R>& d) noexcept
@@ -2554,6 +2534,18 @@ export namespace std
             return out;
         }
     };
+}
+
+#endif
+
+#if __cpp_lib_unreachable < 202202L
+
+export namespace std
+{
+    [[noreturn]] inline void unreachable()
+    {
+        assert(false);
+    }
 }
 
 #endif
