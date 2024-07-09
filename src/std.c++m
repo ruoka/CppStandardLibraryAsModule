@@ -2486,6 +2486,7 @@ export namespace std
     struct formatter<chrono::utc_time<Duration>> : formatter<unsigned>
     {
         bool date = false;
+        bool iso_date = false;
         bool time = false;
         bool ticks = false;
 
@@ -2496,6 +2497,7 @@ export namespace std
             while (pos != context.end() and *pos != '}')
             {
                 if(*pos == 'D') date = true;
+                if(*pos == 'F') iso_date = true;
                 if(*pos == 'T') time = true;
                 if(*pos == 'Q') ticks = true;
                 ++pos;
@@ -2510,10 +2512,18 @@ export namespace std
 
             if(date)
             {
-                // YYYYMMDD-HH:MM:SS.sss
+                // YYYYMMDD
                 const auto midnight = chrono::floor<chrono::days>(timestamp);
                 const auto date = chrono::year_month_day{midnight};
                 std::format_to(out,"{:04}{:02}{:02}",(int)date.year(),(unsigned)date.month(),(unsigned)date.day());
+            }
+
+            if(iso_date)
+            {
+                // YYYY-MM-DD
+                const auto midnight = chrono::floor<chrono::days>(timestamp);
+                const auto date = chrono::year_month_day{midnight};
+                std::format_to(out,"{:04}-{:02}-{:02}",(int)date.year(),(unsigned)date.month(),(unsigned)date.day());
             }
 
             if(date and time)
@@ -2521,7 +2531,7 @@ export namespace std
 
             if(time)
             {
-                // YYYYMMDD-HH:MM:SS.sss
+                // HH:MM:SS.sss
                 const auto midnight = chrono::floor<chrono::days>(timestamp);
                 const auto time = chrono::hh_mm_ss{timestamp - midnight};
                 const auto milliseconds = chrono::duration_cast<chrono::milliseconds>(time.subseconds());
