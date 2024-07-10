@@ -88,6 +88,12 @@ module;
 #ifdef __cpp_lib_syncbuf
 #include <syncstream>
 #endif
+
+// C++23
+#ifdef __cpp_lib_flat_map
+#include <flat_map>
+#endif
+
 // C++ headers for C
 #include <cassert>
 #include <cctype>
@@ -555,6 +561,12 @@ export namespace std
     using std::find_if_not;
     using std::fisher_f_distribution;
     using std::fixed;
+    
+    #ifdef __cpp_lib_flat_map
+    using std::flat_map;
+    using std::flat_multimap_map;
+    #endif
+
     using std::float_denorm_style;
     using std::float_round_style;
     using std::float_t;
