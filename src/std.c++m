@@ -1525,6 +1525,7 @@ export namespace std
     using std::to_chars_result;
     using std::to_integer;
     using std::to_string;
+    using std::to_underlying;
     using std::to_wstring;
     using std::tolower;
     using std::totally_ordered;
