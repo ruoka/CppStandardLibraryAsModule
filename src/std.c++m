@@ -2492,6 +2492,25 @@ export namespace std
             return os;
         }
 
+        template<class>
+        struct is_clock : std::false_type {};
+        
+        template<class T>
+            requires
+                requires
+                {
+                    typename T::rep;
+                    typename T::period;
+                    typename T::duration;
+                    typename T::time_point;
+                    T::is_steady; // type is not checked
+                    T::now();     // return type is not checked
+                }
+        struct is_clock<T> : std::true_type {};
+
+        template< class T >
+        inline constexpr bool is_clock_v = is_clock<T>::value;
+
     } // namesapse chrono
 
     template<typename Duration>
