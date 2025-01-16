@@ -1799,7 +1799,6 @@ export namespace std
     namespace chrono
     {
         using std::chrono::operator <<;
-        // using std::chrono::operator >>;
         using std::chrono::operator +;
         using std::chrono::operator -;
         using std::chrono::operator /;
@@ -1809,7 +1808,6 @@ export namespace std
         using std::chrono::operator >;
         using std::chrono::operator >=;
         using std::chrono::operator ==;
-        using std::chrono::operator !=;
         using std::chrono::operator <=>;
 
         using std::chrono::abs;

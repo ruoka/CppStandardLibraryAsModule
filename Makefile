@@ -9,10 +9,10 @@ OS = $(shell uname -s)
 endif
 
 ifeq ($(OS),Linux)
-CC = /usr/lib/llvm-18/bin/clang
-CXX = /usr/lib/llvm-18/bin/clang++
-CXXFLAGS = -pthread -I/usr/lib/llvm-18/include/c++/v1
-LDFLAGS = -lc++ -L/usr/lib/llvm-18/lib/c++
+CC = /usr/lib/llvm-19/bin/clang
+CXX = /usr/lib/llvm-19/bin/clang++
+CXXFLAGS = -pthread -I/usr/lib/llvm-19/include/c++/v1
+LDFLAGS = -lc++ -L/usr/lib/llvm-19/lib/c++
 endif
 
 ifeq ($(OS),Darwin)
