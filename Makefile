@@ -58,7 +58,7 @@ objects = $(modules:$(sourcedir)%.c++m=$(objectdir)%.o) $(sources:$(sourcedir)%.
 
 $(moduledir)/%.pcm: $(sourcedir)/%.c++m
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $< --precompile -c -o $@
+	$(CXX) $(CXXFLAGS) $< --precompile -o $@
 
 $(objectdir)/%.o: $(moduledir)/%.pcm
 	@mkdir -p $(@D)
