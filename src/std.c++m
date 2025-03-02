@@ -1788,8 +1788,8 @@ export namespace std
     using std::syncbuf;
     using std::wosyncstream;
     using std::wsyncbuf;
-    using std::emit_on_flush;
-    using std::flush_emit;
+//  using std::emit_on_flush;
+//  using std::flush_emit;
     #endif
 
     #ifdef __cpp_lib_three_way_comparison
