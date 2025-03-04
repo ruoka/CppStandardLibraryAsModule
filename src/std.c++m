@@ -564,7 +564,7 @@ export namespace std
     
     #ifdef __cpp_lib_flat_map
     using std::flat_map;
-    using std::flat_multimap_map;
+    // using std::flat_multimap_map; // FIXMEs
     #endif
 
     using std::float_denorm_style;
