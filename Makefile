@@ -30,22 +30,10 @@ LDFLAGS = -L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++
 endif
 
 CXXFLAGS += -std=c++23 -stdlib=libc++
-CXXFLAGS += -fprebuilt-module-path=$(moduledir)
 CXXFLAGS += -Wall -Wextra -Wno-reserved-module-identifier
-CXXFLAGS += -I$(sourcedir)
 LDFLAGS += -fuse-ld=lld
 
 endif #($(MAKELEVEL),0)
-
-# Building a textual umbrella of libc++ inside a module is sensitive; avoid experimental switches here.
-# Strip any -fexperimental-library inherited from parent to reduce header macro churn.
-CXXFLAGS := $(filter-out -fexperimental-library,$(CXXFLAGS))
-
-# For this submodule only, opt back into libc++ experimental and pin target triple
-# to ensure libc++ builtins and headers match the target.
-CXXFLAGS += -fexperimental-library
-CXXFLAGS += -target arm64-apple-macosx14.0
-LDFLAGS += -target arm64-apple-macosx14.0
 
  PREFIX ?= .
 sourcedir = src
@@ -53,6 +41,20 @@ objectdir = $(PREFIX)/obj
 binarydir = $(PREFIX)/bin
 moduledir = $(PREFIX)/pcm
 librarydir = $(PREFIX)/lib
+
+# Module-specific flags (apply regardless of how compiler was configured)
+CXXFLAGS += -fprebuilt-module-path=$(moduledir)
+CXXFLAGS += -I$(sourcedir)
+
+# For this submodule, ensure experimental library flag is present to match other modules
+# and pin target triple on Darwin to ensure libc++ builtins and headers match the target.
+ifeq ($(filter -fexperimental-library,$(CXXFLAGS)),)
+CXXFLAGS += -fexperimental-library
+endif
+ifeq ($(OS),Darwin)
+CXXFLAGS += -target arm64-apple-macosx14.0
+LDFLAGS += -target arm64-apple-macosx14.0
+endif
 
 programs = main
 library = $(librarydir)/libstd.a
