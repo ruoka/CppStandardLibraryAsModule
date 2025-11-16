@@ -37,7 +37,17 @@ LDFLAGS += -fuse-ld=lld
 
 endif #($(MAKELEVEL),0)
 
-PREFIX = .
+# Building a textual umbrella of libc++ inside a module is sensitive; avoid experimental switches here.
+# Strip any -fexperimental-library inherited from parent to reduce header macro churn.
+CXXFLAGS := $(filter-out -fexperimental-library,$(CXXFLAGS))
+
+# For this submodule only, opt back into libc++ experimental and pin target triple
+# to ensure libc++ builtins and headers match the target.
+CXXFLAGS += -fexperimental-library
+CXXFLAGS += -target arm64-apple-macosx14.0
+LDFLAGS += -target arm64-apple-macosx14.0
+
+ PREFIX ?= .
 sourcedir = src
 objectdir = $(PREFIX)/obj
 binarydir = $(PREFIX)/bin
