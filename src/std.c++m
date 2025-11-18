@@ -1879,6 +1879,9 @@ export namespace std
         using std::chrono::year_month_weekday;
         using std::chrono::year_month_weekday_last;
 
+        using std::chrono::is_clock;
+        using std::chrono::is_clock_v;
+
 #if __cpp_lib_chrono >= 201907L
 
         using std::chrono::ambiguous_local_time;
@@ -1895,8 +1898,6 @@ export namespace std
         using std::chrono::gps_clock;
         using std::chrono::gps_seconds;
         using std::chrono::gps_time;
-        using std::chrono::is_clock;
-        using std::chrono::is_clock_v;
         using std::chrono::leap_second;
         using std::chrono::leap_second_info;
         using std::chrono::local_info;
@@ -2490,7 +2491,7 @@ export namespace std
             os << d.count();
             return os;
         }
-
+#if 0
         template<class>
         struct is_clock : std::false_type {};
         
@@ -2506,9 +2507,10 @@ export namespace std
                     T::now();     // return type is not checked
                 }
         struct is_clock<T> : std::true_type {};
-
         template< class T >
         inline constexpr bool is_clock_v = is_clock<T>::value;
+
+#endif
 
     } // namesapse chrono
 

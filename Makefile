@@ -25,8 +25,10 @@ CC = $(LLVM_PREFIX)/bin/clang
 CXX = $(LLVM_PREFIX)/bin/clang++
 # Check if LLVM has its own libc++ (Homebrew) or uses system libc++ (/usr/local/llvm)
 LLVM_HAS_LIBCXX := $(shell test -d $(LLVM_PREFIX)/include/c++/v1 && echo yes || echo no)
+# deps/std wraps system headers, so we need to include libc++ headers
+# The is_clock guard in src/std.c++m prevents redefinition when libc++ already provides it
 ifeq ($(LLVM_HAS_LIBCXX),yes)
-CXXFLAGS =-I$(LLVM_PREFIX)/include/c++/v1
+CXXFLAGS = -I$(LLVM_PREFIX)/include/c++/v1
 LDFLAGS = -L$(LLVM_PREFIX)/lib/c++ -L$(LLVM_PREFIX)/lib -Wl,-rpath,$(LLVM_PREFIX)/lib/c++ -Wl,-rpath,$(LLVM_PREFIX)/lib -lc++
 else
 CXXFLAGS =
@@ -55,6 +57,10 @@ moduledir = $(PREFIX)/pcm
 librarydir = $(PREFIX)/lib
 
 # Module-specific flags (apply regardless of how compiler was configured)
+# Note: deps/std wraps system headers in a module, so it needs access to system headers
+# The is_clock guard in src/std.c++m prevents redefinition when libc++ already provides it
+# Remove -nostdinc++ if present (deps/std needs system headers)
+CXXFLAGS := $(filter-out -nostdinc++,$(CXXFLAGS))
 CXXFLAGS += -fprebuilt-module-path=$(moduledir)
 CXXFLAGS += -I$(sourcedir)
 
