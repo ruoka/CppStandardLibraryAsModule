@@ -16,10 +16,22 @@ LDFLAGS = -lc++ -L/usr/lib/llvm-19/lib/c++
 endif
 
 ifeq ($(OS),Darwin)
-CC = /opt/homebrew/opt/llvm/bin/clang
-CXX = /opt/homebrew/opt/llvm/bin/clang++
-CXXFLAGS =-I/opt/homebrew/opt/llvm/include/c++/v1
-LDFLAGS = -L/opt/homebrew/opt/llvm/lib/c++
+# Prefer /usr/local/llvm if available, otherwise use Homebrew LLVM
+LLVM_PREFIX := $(shell if [ -d /usr/local/llvm ]; then echo "/usr/local/llvm"; elif [ -d /opt/homebrew/opt/llvm ]; then echo "/opt/homebrew/opt/llvm"; else echo ""; fi)
+ifeq ($(LLVM_PREFIX),)
+$(error LLVM not found. Please install LLVM at /usr/local/llvm or: brew install llvm)
+endif
+CC = $(LLVM_PREFIX)/bin/clang
+CXX = $(LLVM_PREFIX)/bin/clang++
+# Check if LLVM has its own libc++ (Homebrew) or uses system libc++ (/usr/local/llvm)
+LLVM_HAS_LIBCXX := $(shell test -d $(LLVM_PREFIX)/include/c++/v1 && echo yes || echo no)
+ifeq ($(LLVM_HAS_LIBCXX),yes)
+CXXFLAGS =-I$(LLVM_PREFIX)/include/c++/v1
+LDFLAGS = -L$(LLVM_PREFIX)/lib/c++ -L$(LLVM_PREFIX)/lib -Wl,-rpath,$(LLVM_PREFIX)/lib/c++ -Wl,-rpath,$(LLVM_PREFIX)/lib -lc++
+else
+CXXFLAGS =
+LDFLAGS =
+endif
 endif
 
 ifeq ($(OS),Github)
